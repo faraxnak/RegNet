@@ -84,6 +84,7 @@ class BasePrefetchingDataLayer :
   Blob<Dtype> prefetch_data_;
   Blob<Dtype> prefetch_label_;
   Blob<Dtype> prefetch_float_;
+  Blob<Dtype> prefetch_label_y_;
 
   Blob<Dtype> transformed_data_;
 };
