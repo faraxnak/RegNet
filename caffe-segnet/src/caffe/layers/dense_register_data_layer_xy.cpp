@@ -24,12 +24,12 @@
 namespace caffe {
 
 template <typename Dtype>
-DenseRegisterDataLayerXY<Dtype>::~DenseRegisterDataLayerXY<Dtype>() {
+DenseRegisterDataXYLayer<Dtype>::~DenseRegisterDataXYLayer<Dtype>() {
   this->JoinPrefetchThread();
 }
 
 template <typename Dtype>
-void DenseRegisterDataLayerXY<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
+void DenseRegisterDataXYLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
   const int new_height = this->layer_param_.dense_image_data_param().new_height();
   const int new_width  = this->layer_param_.dense_image_data_param().new_width();
@@ -162,7 +162,7 @@ void DenseRegisterDataLayerXY<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>&
 }
 
 template <typename Dtype>
-void DenseRegisterDataLayerXY<Dtype>::ShuffleImages() {
+void DenseRegisterDataXYLayer<Dtype>::ShuffleImages() {
   caffe::rng_t* prefetch_rng =
       static_cast<caffe::rng_t*>(prefetch_rng_->generator());
   shuffle(addresses.begin(), addresses.end(), prefetch_rng);
@@ -170,7 +170,7 @@ void DenseRegisterDataLayerXY<Dtype>::ShuffleImages() {
 
 // This function is used to create a thread that prefetches the data.
 template <typename Dtype>
-void DenseRegisterDataLayerXY<Dtype>::InternalThreadEntry() {
+void DenseRegisterDataXYLayer<Dtype>::InternalThreadEntry() {
   CPUTimer batch_timer;
   batch_timer.Start();
   double read_time = 0;
@@ -295,7 +295,7 @@ void DenseRegisterDataLayerXY<Dtype>::InternalThreadEntry() {
   DLOG(INFO) << "Transform time: " << trans_time / 1000 << " ms.";
 }
 
-INSTANTIATE_CLASS(DenseRegisterDataLayerXY);
+INSTANTIATE_CLASS(DenseRegisterDataXYLayer);
 REGISTER_LAYER_CLASS(DenseRegisterDataXY);
 
 }  // namespace caffe

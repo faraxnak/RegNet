@@ -26,11 +26,11 @@ namespace caffe {
 
 
 template <typename Dtype>
-class DenseRegisterDataLayerXY : public BasePrefetchingDataLayer<Dtype> {
+class DenseRegisterDataXYLayer : public BasePrefetchingDataLayer<Dtype> {
  public:
-  explicit DenseRegisterDataLayerXY(const LayerParameter& param)
+  explicit DenseRegisterDataXYLayer(const LayerParameter& param)
       : BasePrefetchingDataLayer<Dtype>(param) {}
-  virtual ~DenseRegisterDataLayerXY();
+  virtual ~DenseRegisterDataXYLayer();
   virtual void DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top);
 
