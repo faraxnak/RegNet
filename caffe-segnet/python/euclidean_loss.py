@@ -22,7 +22,7 @@ class EuclideanLossLayer(caffe.Layer):
             estimate = np.squeeze(bottom[0].data[i,:])
             ind = np.argmax(estimate, axis=0)
             for j in range(0,estimate.shape[0]):
-                result[i, ind == j] = j
+                self.result[i, ind == j] = j
         print(self.result.shape)
         if bottom[0].count != self.result.count:
             raise Exception("Inputs must have the same dimension.")
