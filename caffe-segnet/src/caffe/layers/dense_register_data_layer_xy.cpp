@@ -52,7 +52,7 @@ void DenseRegisterDataLayerXY<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>&
   string floatImage_fileName;
   string label_filename_x;
   string label_filename_y;
-  string 
+  
   while (infile >> filename >> floatImage_fileName >> label_filename_x >> label_filename_y) {
     std::vector<string> row;
     row.push_back(filename);

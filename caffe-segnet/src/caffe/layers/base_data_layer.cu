@@ -28,7 +28,7 @@ void BasePrefetchingDataLayer<Dtype>::Forward_gpu(
     caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
         top[1]->mutable_gpu_data());
   }
-  if (this->output_floatImages_ && this->output_labels_) {
+  if (this->output_floatImages_ && this->output_labels_ && !this->output_labels_y_) {
     // Reshape to loaded labels.
     top[1]->ReshapeLike(prefetch_float_);
     // Copy the labels.
@@ -39,6 +39,23 @@ void BasePrefetchingDataLayer<Dtype>::Forward_gpu(
     // Copy the labels.
     caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
         top[2]->mutable_gpu_data());
+  }
+  if (this->output_floatImages_ && this->output_labels_ && this->output_labels_y_) {
+    // Reshape to loaded labels.
+    top[1]->ReshapeLike(prefetch_float_);
+    // Copy the labels.
+    caffe_copy(prefetch_float_.count(), prefetch_float_.cpu_data(),
+        top[1]->mutable_gpu_data());
+    // Reshape to loaded labels.
+    top[2]->ReshapeLike(prefetch_label_);
+    // Copy the labels.
+    caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
+        top[2]->mutable_gpu_data());
+    // Reshape to loaded labels.
+    top[3]->ReshapeLike(prefetch_label_y_);
+    // Copy the labels.
+    caffe_copy(prefetch_label_y_.count(), prefetch_label_y_.cpu_data(),
+        top[3]->mutable_gpu_data());
   }
   // Start a new prefetch thread
   CreatePrefetchThread();

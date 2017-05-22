@@ -50,6 +50,7 @@ class BaseDataLayer : public Layer<Dtype> {
   shared_ptr<DataTransformer<Dtype> > data_transformer_;
   bool output_labels_;
   bool output_floatImages_;
+  bool output_labels_y_;
 };
 
 template <typename Dtype>

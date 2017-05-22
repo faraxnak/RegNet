@@ -19,9 +19,15 @@ void BaseDataLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
   if (top.size() == 1) {
     output_labels_ = false;
     output_floatImages_  = false;
+    output_labels_y_  = false;
   } else if (top.size() == 3) {
     output_floatImages_ = true;
     output_labels_ = true;
+    output_labels_y_  = false;
+  } else if (top.size() == 4) {
+    output_labels_ = true;
+    output_labels_y_ = true;
+    output_floatImages_ = true;
   } else {
     output_labels_ = true;
     output_floatImages_ = false;
@@ -48,6 +54,9 @@ void BasePrefetchingDataLayer<Dtype>::LayerSetUp(
   }
   if (this->output_floatImages_) {
     this->prefetch_float_.mutable_cpu_data();
+  }
+  if (this->output_labels_y_) {
+    this->prefetch_label_y_.mutable_cpu_data();
   }
   DLOG(INFO) << "Initializing prefetch";
   this->CreatePrefetchThread();
@@ -84,7 +93,7 @@ void BasePrefetchingDataLayer<Dtype>::Forward_cpu(
     caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
                top[1]->mutable_cpu_data());
   }
-  if (this->output_floatImages_ && this->output_labels_) {
+  if (this->output_floatImages_ && this->output_labels_ && !this->output_labels_y_) {
     // Reshape to loaded labels.
     top[1]->ReshapeLike(prefetch_float_);
     // Copy the labels.
@@ -95,6 +104,23 @@ void BasePrefetchingDataLayer<Dtype>::Forward_cpu(
     // Copy the labels.
     caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
                top[2]->mutable_cpu_data());
+  }
+  if (this->output_floatImages_ && this->output_labels_ && this->output_labels_y_) {
+    // Reshape to loaded labels.
+    top[1]->ReshapeLike(prefetch_float_);
+    // Copy the labels.
+    caffe_copy(prefetch_float_.count(), prefetch_float_.cpu_data(),
+               top[1]->mutable_cpu_data());
+    // Reshape to loaded labels.
+    top[2]->ReshapeLike(prefetch_label_);
+    // Copy the labels.
+    caffe_copy(prefetch_label_.count(), prefetch_label_.cpu_data(),
+               top[2]->mutable_cpu_data());
+    //
+    top[3]->ReshapeLike(prefetch_label_y_);
+    //
+    caffe_copy(prefetch_label_y_.count(), prefetch_label_y_.cpu_data(),
+                top[3]->mutable_cpu_data());
   }
   // Start a new prefetch thread
   DLOG(INFO) << "CreatePrefetchThread";
