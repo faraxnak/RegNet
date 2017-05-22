@@ -24,8 +24,8 @@ class EuclideanLossLayer(caffe.Layer):
             for j in range(0,estimate.shape[0]):
                 self.result[i, 0, ind == j] = j
         print(self.result.shape)
-        if bottom[0].count != self.result.count:
-            raise Exception("Inputs must have the same dimension.")
+        # if bottom[0].count != self.result.count:
+        #     raise Exception("Inputs must have the same dimension.")
         # difference is shape of inputs
         self.diff = np.zeros_like(bottom[1].data, dtype=np.float32)
         # loss output is scalar
