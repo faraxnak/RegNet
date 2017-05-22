@@ -32,7 +32,7 @@ class EuclideanLossLayer(caffe.Layer):
         top[0].reshape(1)
 
     def forward(self, bottom, top):
-        self.diff[...] = self.result.data - bottom[1].data
+        self.diff[...] = self.result - bottom[1].data
         top[0].data[...] = np.sum(self.diff**2) / bottom[0].num / 2.
         # loss = np.zeros(bottom[0].data.shape[0], dtype=np.float32)
         # for i in range(0,bottom[0].data.shape[0]):
