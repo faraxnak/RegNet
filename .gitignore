@@ -1,0 +1,6 @@
+*.caffemodel
+*.solverstate
+*.png
+*.rar
+*.zip
+**/Skin

@@ -1,0 +1,16 @@
+net: "/home/bisipl/Documents/MATLAB/SegNet/Models/segnet_basic_train.prototxt"  		# Change this to the absolute path to your model file
+test_initialization: false
+test_iter: 40
+test_interval: 200
+base_lr: 0.2
+lr_policy: "step"
+gamma: 0.5
+stepsize: 2000
+display: 20
+momentum: 0.9
+max_iter: 20000
+iter_size : 5
+weight_decay: 0.0005
+snapshot: 500
+snapshot_prefix: "/home/bisipl/Documents/MATLAB/SegNet/Models/Training/segnet_basic/"  	# Change this to the absolute path to where you wish to output solver snapshots
+solver_mode: GPU
