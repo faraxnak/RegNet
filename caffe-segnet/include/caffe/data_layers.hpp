@@ -80,6 +80,7 @@ class BasePrefetchingDataLayer :
   Blob<Dtype> prefetch_label_;
   Blob<Dtype> transformed_data_;
   Blob<Dtype> prefetch_float_;
+  Blob<Dtype> prefetch_label_y_;
 };
 
 
@@ -95,7 +96,7 @@ class DataLayer : public BasePrefetchingDataLayer<Dtype> {
   virtual inline const char* type() const { return "Data"; }
   virtual inline int ExactNumBottomBlobs() const { return 0; }
   virtual inline int MinTopBlobs() const { return 1; }
-  virtual inline int MaxTopBlobs() const { return 2; }
+  virtual inline int MaxTopBlobs() const { return 4; }
 
  protected:
   virtual void InternalThreadEntry();
