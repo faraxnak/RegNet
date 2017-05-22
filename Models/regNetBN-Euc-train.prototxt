@@ -190,6 +190,7 @@ layer {
   name: 'EucLoss'
   bottom: 'sm'
   bottom: 'labelX'
+  top: 'euc_loss'
   python_param {
     module: "euclidean_loss"
     layer: "EuclideanLossLayer"
