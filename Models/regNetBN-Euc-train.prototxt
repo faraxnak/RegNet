@@ -191,6 +191,7 @@ layer {
   bottom: 'sm'
   bottom: 'labelX'
   top: 'loss'
+  loss_weight: 1
   python_param {
     module: "euclidean_loss"
     layer: "EuclideanLossLayer"
