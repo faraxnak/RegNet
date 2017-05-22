@@ -52,7 +52,7 @@ void DenseRegisterDataLayerXY<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>&
   string floatImage_fileName;
   string label_filename_x;
   string label_filename_y;
-  
+
   while (infile >> filename >> floatImage_fileName >> label_filename_x >> label_filename_y) {
     std::vector<string> row;
     row.push_back(filename);
@@ -289,13 +289,13 @@ void DenseRegisterDataLayerXY<Dtype>::InternalThreadEntry() {
       }
     }
   }
-  batch_timer.Stop();
+    batch_timer.Stop();
   DLOG(INFO) << "Prefetch batch: " << batch_timer.MilliSeconds() << " ms.";
   DLOG(INFO) << "     Read time: " << read_time / 1000 << " ms.";
   DLOG(INFO) << "Transform time: " << trans_time / 1000 << " ms.";
 }
 
 INSTANTIATE_CLASS(DenseRegisterDataLayerXY);
-REGISTER_LAYER_CLASS(DenseRegisterData);
+REGISTER_LAYER_CLASS(DenseRegisterDataXY);
 
 }  // namespace caffe
