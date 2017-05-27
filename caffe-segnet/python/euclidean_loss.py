@@ -19,7 +19,7 @@ class EuclideanLossLayer(caffe.Layer):
     def reshape(self, bottom, top):
         # check input dimensions match
         self.result = np.zeros_like(bottom[1].data, dtype=np.float32)
-        self.index = np.zeros_like(bottom[1].data, dtype=np.float32)
+        self.index = np.zeros_like(bottom[1].data, dtype=np.uint16)
         for i in range(0,bottom[0].data.shape[0]):
             estimate = np.squeeze(bottom[0].data[i,:])
             ind = np.argmax(estimate, axis=0)
