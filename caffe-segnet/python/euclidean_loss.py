@@ -20,6 +20,7 @@ class EuclideanLossLayer(caffe.Layer):
         self.result = np.zeros_like(bottom[1].data, dtype=np.float32)
         for i in range(0,bottom[0].data.shape[0]):
             estimate = np.squeeze(bottom[0].data[i,:])
+            ind = np.argmax(estimate, axis=0)
             for j in range(0,estimate.shape[0]):
                 self.result[i, 0, ind == j] = j
         # if bottom[0].count != self.result.count:
