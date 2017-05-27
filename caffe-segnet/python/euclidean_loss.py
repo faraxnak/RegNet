@@ -35,7 +35,7 @@ class EuclideanLossLayer(caffe.Layer):
         top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
 
         for i in range(0,bottom[0].data.shape[0]):
-            res = sef.result[i,0, ...]
+            res = self.result[i,0, ...]
             for j in range(0,estimate.shape[0]):
                 self.diff[i,j, res == j] = diff[res == j]
 
