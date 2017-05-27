@@ -37,7 +37,8 @@ class EuclideanLossLayer(caffe.Layer):
         diff = self.result - bottom[1].data
         print(self.index.shape)
         sys.stdin.read(1)
-        self.diff[self.index] = diff
+        # self.diff[self.index] = diff
+        self.diff[np.array(self.index.data, dtype=np.uint16)] = diff
         top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
         # loss = np.zeros(bottom[0].data.shape[0], dtype=np.float32)
         # for i in range(0,bottom[0].data.shape[0]):
