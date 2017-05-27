@@ -1,5 +1,6 @@
 import caffe
 import numpy as np
+import sys
 
 
 class EuclideanLossLayer(caffe.Layer):
