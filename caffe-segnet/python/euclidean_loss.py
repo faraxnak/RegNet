@@ -8,6 +8,7 @@ class EuclideanLossLayer(caffe.Layer):
     to demonstrate the class interface for developing layers in Python.
     """
     result = None
+    index = None
 
     def setup(self, bottom, top):
         # check input pair
@@ -17,9 +18,11 @@ class EuclideanLossLayer(caffe.Layer):
     def reshape(self, bottom, top):
         # check input dimensions match
         self.result = np.zeros_like(bottom[1].data, dtype=np.float32)
+        self.index = np.zeros_like(bottom[1].data, dtype=np.float32)
         for i in range(0,bottom[0].data.shape[0]):
             estimate = np.squeeze(bottom[0].data[i,:])
             ind = np.argmax(estimate, axis=0)
+            self.index[i] = ind
             for j in range(0,estimate.shape[0]):
                 self.result[i, 0, ind == j] = j
         # if bottom[0].count != self.result.count:
@@ -30,8 +33,9 @@ class EuclideanLossLayer(caffe.Layer):
         top[0].reshape(1)
 
     def forward(self, bottom, top):
-        self.diff[...] = self.result - bottom[1].data
-        top[0].data[...] = np.sum(self.diff**2) / bottom[0].num / 2.
+        diff = self.result - bottom[1].data
+        self.diff[self.index] = diff
+        top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
         # loss = np.zeros(bottom[0].data.shape[0], dtype=np.float32)
         # for i in range(0,bottom[0].data.shape[0]):
         #     self.diff[i,:] = bottom[0].data - bottom[1].data
