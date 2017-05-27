@@ -9,7 +9,6 @@ class EuclideanLossLayer(caffe.Layer):
     to demonstrate the class interface for developing layers in Python.
     """
     result = None
-    index = None
 
     def setup(self, bottom, top):
         # check input pair
@@ -19,11 +18,8 @@ class EuclideanLossLayer(caffe.Layer):
     def reshape(self, bottom, top):
         # check input dimensions match
         self.result = np.zeros_like(bottom[1].data, dtype=np.float32)
-        self.index = np.zeros_like(bottom[1].data, dtype=np.uint16)
         for i in range(0,bottom[0].data.shape[0]):
             estimate = np.squeeze(bottom[0].data[i,:])
-            ind = np.argmax(estimate, axis=0)
-            self.index[i] = ind
             for j in range(0,estimate.shape[0]):
                 self.result[i, 0, ind == j] = j
         # if bottom[0].count != self.result.count:
@@ -35,19 +31,13 @@ class EuclideanLossLayer(caffe.Layer):
 
     def forward(self, bottom, top):
         diff = self.result - bottom[1].data
-        print(self.index.shape)
-        print(self.diff.shape)
-        sys.stdin.read(1)
-        # self.diff[self.index] = diff
-        # self.diff[np.array(self.index.data, dtype=np.uint16)] = diff
         self.diff[range(bottom[0].num), np.array(bottom[1].data,dtype=np.uint16)] -= 1
         top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
-        # loss = np.zeros(bottom[0].data.shape[0], dtype=np.float32)
-        # for i in range(0,bottom[0].data.shape[0]):
-        #     self.diff[i,:] = bottom[0].data - bottom[1].data
-        #     loss[i] = np.sum(self.diff[i,:]**2) / bottom[i,0].num / 2.
-        #     # top[0].data[...] = np.sum(self.diff**2) / bottom[0].num / 2.
-        # top[0].data[0] = np.sum(loss)
+
+        for i in range(0,bottom[0].data.shape[0]):
+            res = sef.result[i,0, ...]
+            for j in range(0,estimate.shape[0]):
+                self.diff[i,j, res == j] = diff[res == j]
 
     def backward(self, top, propagate_down, bottom):
         for i in range(2):
