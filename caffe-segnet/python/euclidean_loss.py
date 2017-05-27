@@ -38,7 +38,8 @@ class EuclideanLossLayer(caffe.Layer):
             estimate = np.squeeze(bottom[0].data[i,:])
             res = self.result[i,0, ...]
             for j in range(0, estimate.shape[0]):
-                self.diff[i,j, res == j] = diff[i,0, res == j]
+                self.diff[i,j, res == j] = (1 - bottom[0].data[i,j, res == j])
+                self.diff[i,j, res != j] = -1 * bottom[0].data[i,j, res != j]
 
     def backward(self, top, propagate_down, bottom):
         for i in range(2):
