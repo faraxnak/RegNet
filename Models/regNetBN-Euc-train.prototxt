@@ -161,7 +161,7 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
           class_weighting: 0.25
           class_weighting: 0.25
           class_weighting: 0.5
-          # class_weighting: 1
+          class_weighting: 1
         } 
 }
 
