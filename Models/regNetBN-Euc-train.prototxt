@@ -144,7 +144,7 @@ layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_relu_d1d"      
 
 # convolution before softmax (approximating fully connected layer)
 
-layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 5 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
+layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 1 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
 # layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "InnerProduct"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 4 pad: 1 kernel_size: 1 weight_filler { type: "gaussian" } bias_filler { type: "constant" } } }
 
 
@@ -165,38 +165,47 @@ layer { bottom: "dec_d2b" bottom: "ref"  top: "crop" name: "crop"              t
 #         } 
 # }
 
-layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
+# layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
 
-layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} }
+# layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} }
+
+# layer {
+#     type: 'Python'
+#     name: 'testInference'
+#     bottom: 'ref'
+#     bottom: 'fl'
+#     bottom: 'sm'
+#     bottom: 'labelX'
+#     python_param {
+#       module: "testInference"
+#       layer: "TestInference"
+#     }
+#     include {
+#       phase : TEST
+#     }
+# }
+
+# layer {
+#   type: 'Python'
+#   name: 'EucLoss'
+#   bottom: 'sm'
+#   bottom: 'labelX'
+#   top: 'loss'
+#   loss_weight: 1
+#   python_param {
+#     module: "euclidean_loss"
+#     layer: "EuclideanLossLayer"
+#   }
+#   include {
+#     phase: TRAIN
+#   }
+# }
 
 layer {
-    type: 'Python'
-    name: 'testInference'
-    bottom: 'ref'
-    bottom: 'fl'
-    bottom: 'sm'
-    bottom: 'labelX'
-    python_param {
-      module: "testInference"
-      layer: "TestInference"
-    }
-    include {
-      phase : TEST
-    }
-}
-
-layer {
-  type: 'Python'
-  name: 'EucLoss'
-  bottom: 'sm'
-  bottom: 'labelX'
-  top: 'loss'
-  loss_weight: 1
-  python_param {
-    module: "euclidean_loss"
-    layer: "EuclideanLossLayer"
-  }
-  include {
-    phase: TRAIN
-  }
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "crop"
+  bottom: "labelX"
+  top: "l2_error"
+  loss_weight: 0
 }
