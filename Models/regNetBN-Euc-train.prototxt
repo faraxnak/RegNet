@@ -167,23 +167,27 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
 
 layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
 
-# layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} }
+layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} 
+  include {
+    phase: TEST
+  }
+}
 
-# layer {
-#     type: 'Python'
-#     name: 'testInference'
-#     bottom: 'ref'
-#     bottom: 'fl'
-#     bottom: 'sm'
-#     bottom: 'labelX'
-#     python_param {
-#       module: "testInference"
-#       layer: "TestInference"
-#     }
-#     include {
-#       phase : TEST
-#     }
-# }
+layer {
+    type: 'Python'
+    name: 'testInference'
+    bottom: 'ref'
+    bottom: 'fl'
+    bottom: 'sm'
+    bottom: 'labelX'
+    python_param {
+      module: "testInference"
+      layer: "TestInference"
+    }
+    include {
+      phase : TEST
+    }
+}
 
 # layer {
 #   type: 'Python'
@@ -201,11 +205,11 @@ layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accurac
 #   }
 # }
 
-layer {
-  name: "loss"
-  type: "EuclideanLoss"
-  bottom: "crop"
-  bottom: "labelX"
-  top: "l2_error"
-  loss_weight: 0
-}
+# layer {
+#   name: "loss"
+#   type: "EuclideanLoss"
+#   bottom: "crop"
+#   bottom: "labelX"
+#   top: "l2_error"
+#   loss_weight: 0
+# }
