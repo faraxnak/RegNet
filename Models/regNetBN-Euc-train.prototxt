@@ -192,6 +192,21 @@ layer {
 
 layer {
   type: 'Python'
+  name: 'TestEucLoss'
+  bottom: 'sm'
+  bottom: 'labelX'
+  top: 'weighted_loss'
+  python_param {
+    module: "test_weighted_euclidean_loss"
+    layer: "TESTWeightedEuclideanLossLayer"
+  }
+  include {
+    phase: TEST
+  }
+}
+
+layer {
+  type: 'Python'
   name: 'EucLoss'
   bottom: 'sm'
   bottom: 'labelX'
