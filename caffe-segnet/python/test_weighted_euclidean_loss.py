@@ -22,13 +22,17 @@ class TestWeightedEuclideanLossLayer(caffe.Layer):
         top[0].reshape(1)
 
     def forward(self, bottom, top):
+        print("bottom num is ", bottom[0].num)
         for i in range(0, bottom[0].data.shape[0]):
             prob = np.squeeze(bottom[0].data[i, :])
             for j in range(0,prob.shape[0]):
                 self.result[i, 0, :] += prob[j, :] * j
             tmp = np.squeeze(self.result[i, 0])
+            tmp2 = np.squeeze(bottom[1].data[i,:])
             plt.figure()
             plt.imshow(tmp, vmin = 0, vmax = prob.shape[0])
+            plt.figure()
+            plt.imshow(tmp2, vmin = 0, vmax = prob.shape[0])
         plt.show()
         diff = self.result - bottom[1].data
         top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
