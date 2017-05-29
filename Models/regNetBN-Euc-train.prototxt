@@ -163,7 +163,7 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
           class_weighting: 0.5
           class_weighting: 1
         }
-        loss_weight : 0.9999
+        loss_weight : 0.99
 }
 
 layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
@@ -196,7 +196,7 @@ layer {
   bottom: 'sm'
   bottom: 'labelX'
   top: 'weighted_loss'
-  loss_weight: 0.1
+  loss_weight: 0.01
   python_param {
     module: "weighted_euclidean_loss"
     layer: "WeightedEuclideanLossLayer"
@@ -206,14 +206,14 @@ layer {
   }
 }
 
-layer { bottom: "dec_d2b"             top: "euc_d0"  name: "euc_d0"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 1 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
-layer { bottom: "euc_d0"  bottom: "ref"  top: "euc_crop" name: "euc_crop"              type: "Crop"               crop_param { offset: 2 }}
+# layer { bottom: "dec_d2b"             top: "euc_d0"  name: "euc_d0"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 1 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
+# layer { bottom: "euc_d0"  bottom: "ref"  top: "euc_crop" name: "euc_crop"              type: "Crop"               crop_param { offset: 2 }}
 
-layer {
-  name: "loss"
-  type: "EuclideanLoss"
-  bottom: "euc_crop"
-  bottom: "labelX"
-  top: "l2_error"
-  loss_weight: 0.0001
-}
+# layer {
+#   name: "loss"
+#   type: "EuclideanLoss"
+#   bottom: "euc_crop"
+#   bottom: "labelX"
+#   top: "l2_error"
+#   loss_weight: 0.0001
+# }

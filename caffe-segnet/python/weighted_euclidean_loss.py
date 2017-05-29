@@ -27,10 +27,10 @@ class WeightedEuclideanLossLayer(caffe.Layer):
             prob = np.squeeze(bottom[0].data[i, :])
             for j in range(0,prob.shape[0]):
                 self.result[i, 0, :] += prob[j, :] * j
-            tmp = np.squeeze(self.result[i, 0])
-            plt.figure()
-            plt.imshow(tmp, vmin = 0, vmax = prob.shape[0])
-        plt.show()
+        #     tmp = np.squeeze(self.result[i, 0])
+        #     plt.figure()
+        #     plt.imshow(tmp, vmin = 0, vmax = prob.shape[0])
+        # plt.show()
         diff = self.result - bottom[1].data
         top[0].data[...] = np.sum(diff**2) / bottom[0].num / 2.
 
