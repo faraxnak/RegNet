@@ -190,21 +190,21 @@ layer {
     }
 }
 
-# layer {
-#   type: 'Python'
-#   name: 'EucLoss'
-#   bottom: 'sm'
-#   bottom: 'labelX'
-#   top: 'loss'
-#   loss_weight: 1
-#   python_param {
-#     module: "euclidean_loss"
-#     layer: "EuclideanLossLayer"
-#   }
-#   include {
-#     phase: TRAIN
-#   }
-# }
+layer {
+  type: 'Python'
+  name: 'EucLoss'
+  bottom: 'sm'
+  bottom: 'labelX'
+  top: 'weighted_loss'
+  loss_weight: 1
+  python_param {
+    module: "weighted_euclidean_loss"
+    layer: "WeightedEuclideanLossLayer"
+  }
+  include {
+    phase: TRAIN
+  }
+}
 
 layer { bottom: "dec_d2b"             top: "euc_d0"  name: "euc_d0"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 1 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
 layer { bottom: "euc_d0"  bottom: "ref"  top: "euc_crop" name: "euc_crop"              type: "Crop"               crop_param { offset: 2 }}

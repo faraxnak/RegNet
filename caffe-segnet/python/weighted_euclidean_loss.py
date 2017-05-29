@@ -10,11 +10,12 @@ class WeightedEuclideanLossLayer(caffe.Layer):
 
     def setup(self, bottom, top):
         # check input pair
-        if len(bottom) != 1:
-            raise Exception("Need just one input to compute weighted average.")
+        if len(bottom) != 2:
+            raise Exception("Need two inputs to compute weighted Euclidean loss.")
 
     def reshape(self, bottom, top):
         # check input dimensions match
+        # wil check later!
         self.result = np.zeros_like(bottom[1].data, dtype=np.float32)
         self.diff = np.zeros_like(bottom[0].data, dtype = np.float32)
         # loss output is scalar
