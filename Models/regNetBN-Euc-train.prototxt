@@ -198,7 +198,7 @@ layer {
   top: 'weighted_loss'
   python_param {
     module: "test_weighted_euclidean_loss"
-    layer: "TESTWeightedEuclideanLossLayer"
+    layer: "TestWeightedEuclideanLossLayer"
   }
   include {
     phase: TEST
