@@ -169,9 +169,9 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
 layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
 
 layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} 
-  include {
-    phase: TEST
-  }
+  # include {
+  #   phase: TEST
+  # }
 }
 
 layer {
@@ -196,7 +196,7 @@ layer {
   bottom: 'sm'
   bottom: 'labelX'
   top: 'weighted_loss'
-  loss_weight: 1
+  loss_weight: 0.1
   python_param {
     module: "weighted_euclidean_loss"
     layer: "WeightedEuclideanLossLayer"
