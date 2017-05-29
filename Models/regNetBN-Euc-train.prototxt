@@ -187,6 +187,7 @@ layer {
     include {
       phase : TEST
     }
+    loss_weight : 0.8
 }
 
 # layer {
@@ -205,11 +206,13 @@ layer {
 #   }
 # }
 
-# layer {
-#   name: "loss"
-#   type: "EuclideanLoss"
-#   bottom: "crop"
-#   bottom: "labelX"
-#   top: "l2_error"
-#   loss_weight: 0
-# }
+layer { bottom: "crop"             top: "euc_d0"  name: "euc_d0"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 1 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
+
+layer {
+  name: "loss"
+  type: "EuclideanLoss"
+  bottom: "euc_d0"
+  bottom: "labelX"
+  top: "l2_error"
+  loss_weight: 0.2
+}
