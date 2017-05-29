@@ -163,7 +163,7 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
           class_weighting: 0.5
           class_weighting: 1
         }
-        loss_weight : 0.8 
+        loss_weight : 0.95
 }
 
 layer { bottom: "crop"  bottom: "labelX" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
@@ -215,5 +215,5 @@ layer {
   bottom: "euc_crop"
   bottom: "labelX"
   top: "l2_error"
-  loss_weight: 0.2
+  loss_weight: 0.05
 }
