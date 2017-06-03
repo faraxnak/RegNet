@@ -144,7 +144,7 @@ layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_relu_d1d"      
 
 # convolution before softmax (approximating fully connected layer)
 
-layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 6 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
+layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 5 pad: 1 kernel_size: 1 weight_filler { type: "xavier" } bias_filler { type: "constant" } } }
 # layer { bottom: "dec_d1d"             top: "dec_d2b"  name: "dec_d2b"           type: "InnerProduct"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 4 pad: 1 kernel_size: 1 weight_filler { type: "gaussian" } bias_filler { type: "constant" } } }
 
 
@@ -160,8 +160,8 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
           class_weighting: 0.5
           class_weighting: 0.25
           class_weighting: 0.25
-          class_weighting: 0.5
           class_weighting: 1
+          # class_weighting: 1
         }
         loss_weight : 0.99
 }
@@ -211,7 +211,7 @@ layer {
   bottom: 'sm'
   bottom: 'labelX'
   top: 'weighted_loss'
-  loss_weight: 0.0
+  loss_weight: 0.001
   python_param {
     module: "weighted_euclidean_loss"
     layer: "WeightedEuclideanLossLayer"
