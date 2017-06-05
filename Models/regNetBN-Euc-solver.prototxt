@@ -2,11 +2,11 @@ net: "/home/bisipl/Documents/MATLAB/SegNet/Models/regNetBN-Euc-train.prototxt"  
 test_initialization: false
 test_iter: 2
 test_interval: 10000
-base_lr: 0.000001
+base_lr: 0.00001
 lr_policy: "step"
 gamma: 0.5
 stepsize: 2000
-display: 20
+display: 50
 momentum: 0.8
 max_iter: 10005
 iter_size : 2
