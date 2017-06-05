@@ -191,7 +191,7 @@ layer { bottom: "dec_d2d"             top: "dec_d3b"  name: "dec_d3b"           
 
 
 ## crop and loss layer
-layer { bottom: "dec_d3b" bottom: "ref"  top: "crop" name: "crop"              type: "Crop"               crop_param { offset: 8 }}
+layer { bottom: "dec_d3b" bottom: "ref"  top: "crop" name: "crop"              type: "Crop"               crop_param { offset: 0 }}
 
 
 layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"              type: "SoftmaxWithLoss"   softmax_param {engine: CAFFE}   
