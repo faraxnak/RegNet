@@ -167,7 +167,8 @@ layer { bottom: "dec_d0c"             top: "dec_d0d"  name: "dec_conv_d0c-d"    
 layer { bottom: "dec_d0d"             top: "dec_d0d"  name: "dec_bn_d0d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d0d"             top: "dec_d0d"  name: "dec_relu_d0d"      type: "ReLU" }
 
-layer { bottom: "concat_d1"         bottom: "dec_d0d"     top: "concat_dec1"          name: "concat_dec1"     type: "Concat"  concat_param { axis: 1 }}
+layer { bottom: "dec_d0d"           bottom: "concat_d1"   top: "crop_d0d"             name: "crop_d0d"        type: "Crop"    crop_param { offset: 0 }}
+layer { bottom: "concat_d1"         bottom: "crop_d0d"    top: "concat_dec1"          name: "concat_dec1"     type: "Concat"  concat_param { axis: 1 }}
 
 # decoder two
 layer { bottom: "concat_dec1"         top: "dec_d1b"  name: "dec_d1a-b"         type: "Deconvolution"   param { lr_mult: 0 }  convolution_param { num_output: 256 bias_term: false  kernel_size: 2  stride: 2 weight_filler: { type: "bilinear" }}}
@@ -180,7 +181,8 @@ layer { bottom: "dec_d1c"             top: "dec_d1d"  name: "dec_conv_d1c-d"    
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_relu_d1d"      type: "ReLU" }
 
-layer { bottom: "concat_d0"         bottom: "dec_d1d"     top: "concat_dec2"          name: "concat_dec2"     type: "Concat"  concat_param { axis: 1 }}
+layer { bottom: "dec_d1d"           bottom: "concat_d1"   top: "crop_d1d"             name: "crop_d1d"        type: "Crop"    crop_param { offset: 0 }}
+layer { bottom: "concat_d0"         bottom: "crop_d1d"    top: "concat_dec2"          name: "concat_dec2"     type: "Concat"  concat_param { axis: 1 }}
 
 # decoder three
 layer { bottom: "concat_dec2"         top: "dec_d2b"  name: "dec_d2a-b"         type: "Deconvolution"   param { lr_mult: 0 }  convolution_param { num_output: 128 bias_term: false  kernel_size: 2  stride: 2 weight_filler: { type: "bilinear" }}}
