@@ -52,7 +52,7 @@ layer {
   lrn_param { local_size: 5 alpha: 0.0001 beta: 0.75 }
 }
 
-layer { bottom: "labelY"             name: "silence"     type: "Silence" }
+layer { bottom: "labelY"                                name: "silence"            type: "Silence" }
 # reference image
 # encoder one
 layer { bottom: "ref_norm"             top: "ref_d0b"   name: "ref_conv_d0a-b"     type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 } convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" }} }
@@ -158,6 +158,7 @@ layer { bottom: "ref_d0pool"        bottom: "fl_d0pool"   top: "concat_d0"      
 ## decoding
 # decoder one
 layer { bottom: "concat_d2"           top: "dec_d0b"  name: "dec_d0a-b"         type: "Deconvolution"   param { lr_mult: 0 }  convolution_param { num_output: 256 bias_term: false  kernel_size: 2  stride: 2 weight_filler: { type: "bilinear" }}}
+layer { bottom: "dec_d0d"             top: "dec_d0d"  name: "dec_bn_d0d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d0b"             top: "dec_d0b"  name: "dec_relu_d0b"      type: "ReLU" }
 layer { bottom: "dec_d0b"             top: "dec_d0c"  name: "dec_conv_d0b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "dec_d0c"             top: "dec_d0c"  name: "dec_bn_d0c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
@@ -170,6 +171,7 @@ layer { bottom: "concat_d1"         bottom: "dec_d0d"     top: "concat_dec1"    
 
 # decoder two
 layer { bottom: "concat_dec1"         top: "dec_d1b"  name: "dec_d1a-b"         type: "Deconvolution"   param { lr_mult: 0 }  convolution_param { num_output: 256 bias_term: false  kernel_size: 2  stride: 2 weight_filler: { type: "bilinear" }}}
+layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d1b"             top: "dec_d1b"  name: "dec_relu_d1b"      type: "ReLU" }
 layer { bottom: "dec_d1b"             top: "dec_d1c"  name: "dec_conv_d1b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "dec_d1c"             top: "dec_d1c"  name: "dec_bn_d1c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
@@ -182,6 +184,7 @@ layer { bottom: "concat_d0"         bottom: "dec_d1d"     top: "concat_dec2"    
 
 # decoder three
 layer { bottom: "concat_dec2"         top: "dec_d2b"  name: "dec_d2a-b"         type: "Deconvolution"   param { lr_mult: 0 }  convolution_param { num_output: 128 bias_term: false  kernel_size: 2  stride: 2 weight_filler: { type: "bilinear" }}}
+layer { bottom: "dec_d2d"             top: "dec_d2d"  name: "dec_bn_d2d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d2b"             top: "dec_d2b"  name: "dec_relu_d2b"      type: "ReLU" }
 layer { bottom: "dec_d2b"             top: "dec_d2c"  name: "dec_conv_d2b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "dec_d2c"             top: "dec_d2c"  name: "dec_bn_d2c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
