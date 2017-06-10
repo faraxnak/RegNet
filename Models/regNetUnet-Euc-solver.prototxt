@@ -14,4 +14,4 @@ weight_decay: 0.05
 snapshot: 500
 snapshot_prefix: "/home/bisipl/Documents/MATLAB/SegNet/Models/Training/regnet_unet_euc/"  	# Change this to the absolute path to where you wish to output solver snapshots
 solver_mode: GPU
-# type: "Adam"
+type: "Adam"
