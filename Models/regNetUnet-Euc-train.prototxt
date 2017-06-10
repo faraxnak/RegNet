@@ -210,9 +210,9 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"  name: "loss"            ty
           weight_by_label_freqs: true 
           # ignore_label: 5 
           class_weighting: 1
-          class_weighting: 0.5
-          class_weighting: 0.25
-          class_weighting: 0.5
+          class_weighting: 0.1
+          class_weighting: 0.01
+          class_weighting: 0.1
           class_weighting: 1
           # class_weighting: 1
         }
