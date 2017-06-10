@@ -181,7 +181,7 @@ layer { bottom: "dec_d1c"             top: "dec_d1d"  name: "dec_conv_d1c-d"    
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_relu_d1d"      type: "ReLU" }
 
-layer { bottom: "dec_d1d"           bottom: "concat_d1"   top: "crop_d1d"             name: "crop_d1d"        type: "Crop"    crop_param { offset: 0 }}
+layer { bottom: "dec_d1d"           bottom: "concat_d0"   top: "crop_d1d"             name: "crop_d1d"        type: "Crop"    crop_param { offset: 0 }}
 layer { bottom: "concat_d0"         bottom: "crop_d1d"    top: "concat_dec2"          name: "concat_dec2"     type: "Concat"  concat_param { axis: 1 }}
 
 # decoder three
