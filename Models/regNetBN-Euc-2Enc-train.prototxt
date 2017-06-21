@@ -155,11 +155,11 @@ layer { bottom: "dec_d2b" bottom: "ref"  top: "crop" name: "crop"              t
 layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"              type: "SoftmaxWithLoss"   softmax_param {engine: CAFFE}   
         loss_param: {
           weight_by_label_freqs: true 
-          ignore_label: 5 
-          class_weighting: 0.36
-          class_weighting: 0.14
-          class_weighting: 0.1
-          class_weighting: 0.25
+          # ignore_label: 5 
+          class_weighting: 0.2
+          class_weighting: 0.05
+          class_weighting: 0.01
+          class_weighting: 0.05
           class_weighting: 1
           # class_weighting: 1
         } 
