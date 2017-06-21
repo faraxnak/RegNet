@@ -77,7 +77,7 @@ layer { bottom: "ref_d1b"              top: "ref_d1b"   name: "ref_relu_d1b"    
 layer { bottom: "ref_d1b"              top: "ref_d1c"   name: "ref_conv_d1b-c"     type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "ref_d1c"              top: "ref_d1c"   name: "ref_bn_d1c"         type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "ref_d1c"              top: "ref_d1c"   name: "ref_relu_d1c"       type: "ReLU" }
-layer { bottom: "ref_d1c"              top: "ref_d1d"   name: "ref_conv_d1c-d"     type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra"} bias_filler { type: "constant" }} }
+layer { bottom: "ref_d1c"              top: "ref_d1d"   name: "ref_conv_d1c-d"     type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 weight_filler { type: "msra"} bias_filler { type: "constant" }} }
 layer { bottom: "ref_d1d"              top: "ref_d1d"   name: "ref_bn_d1d"         type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "ref_d1d"              top: "ref_d1d"   name: "ref_relu_d1d"       type: "ReLU" }
 
@@ -138,7 +138,7 @@ layer { bottom: "dec_d1b"             top: "dec_d1b"  name: "dec_relu_d1b"      
 layer { bottom: "dec_d1b"             top: "dec_d1c"  name: "dec_conv_d1b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "dec_d1c"             top: "dec_d1c"  name: "dec_bn_d1c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d1c"             top: "dec_d1c"  name: "dec_relu_d1c"      type: "ReLU" }
-layer { bottom: "dec_d1c"             top: "dec_d1d"  name: "dec_conv_d1c-d"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
+layer { bottom: "dec_d1c"             top: "dec_d1d"  name: "dec_conv_d1c-d"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "dec_d1d"             top: "dec_d1d"  name: "dec_relu_d1d"      type: "ReLU" }
 
@@ -158,9 +158,9 @@ layer { bottom: "crop"  bottom: "labelX" top: "loss"   name: "loss"             
           # ignore_label: 5 
           class_weighting: 0.2
           class_weighting: 0.05
-          class_weighting: 0.01
-          class_weighting: 0.05
-          class_weighting: 1
+          class_weighting: 0.02
+          class_weighting: 0.08
+          class_weighting: 1.0
           # class_weighting: 1
         } 
 }
