@@ -142,7 +142,7 @@ layer { bottom: "cat_d0d"             top: "cat_d1pool"  name:"cat_d1pool"      
 layer { bottom: "cat_d1pool"          top: "cat_d1pool"  name: "cat_relu_d1pool"       type: "ReLU" }
 
 # encoder two
-layer { bottom: "concat"              top: "cat_d1b"  name: "cat_d1a-b"         type: "Convolution"   param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
+layer { bottom: "cat_d1pool"          top: "cat_d1b"  name: "cat_d1a-b"         type: "Convolution"   param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "cat_d1b"             top: "cat_d1b"  name: "cat_bn_d1b"         type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "cat_d1b"             top: "cat_d1b"  name: "cat_relu_d1b"      type: "ReLU" }
 # layer { bottom: "cat_d1b"             top: "cat_d1c"  name: "cat_conv_d1b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
