@@ -145,15 +145,15 @@ layer { bottom: "cat_d1pool"          top: "cat_d1pool"  name: "cat_relu_d1pool"
 layer { bottom: "concat"              top: "cat_d1b"  name: "cat_d1a-b"         type: "Convolution"   param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
 layer { bottom: "cat_d1b"             top: "cat_d1b"  name: "cat_bn_d1b"         type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
 layer { bottom: "cat_d1b"             top: "cat_d1b"  name: "cat_relu_d1b"      type: "ReLU" }
-layer { bottom: "cat_d1b"             top: "cat_d1c"  name: "cat_conv_d1b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
-layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_bn_d1c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
-layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_relu_d1c"      type: "ReLU" }
-layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_conv_d1c-d"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
-layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
-layer { bottom: "cat_d1c"             top: "cat_d1d"  name: "cat_relu_d1d"      type: "ReLU" }
+# layer { bottom: "cat_d1b"             top: "cat_d1c"  name: "cat_conv_d1b-c"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
+# layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_bn_d1c"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
+# layer { bottom: "cat_d1c"             top: "cat_d1c"  name: "cat_relu_d1c"      type: "ReLU" }
+# layer { bottom: "cat_d1c"             top: "cat_d1d"  name: "cat_conv_d1c-d"    type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" } } }
+# layer { bottom: "cat_d1d"             top: "cat_d1d"  name: "cat_bn_d1d"        type: "BN"           bn_param { scale_filler { type: "constant" value: 1 } shift_filler { type: "constant" value: 0.001 } } }
+# layer { bottom: "cat_d1d"             top: "cat_d1d"  name: "cat_relu_d1d"      type: "ReLU" }
 
 # fully connected
-layer { bottom: "cat_d1c"             top: "fc_d1"    name: "fc_d1"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 1024  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
+layer { bottom: "cat_d1b"             top: "fc_d1"    name: "fc_d1"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 1024  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
 
 layer { bottom: "fc_d1"               top: "fc_d2"    name: "fc_d2"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 20  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
 
