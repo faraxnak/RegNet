@@ -158,7 +158,7 @@ layer { bottom: "cat_d1c"             top: "fc_d1"    name: "fc_d1"             
 layer { bottom: "fc_d1"               top: "fc_d2"    name: "fc_d2"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 20  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
 
 # rotation label from image
-layer { bottom: "label"              top: "rotation" name: "rotation"          type: "Pooling"      pooling_param { pool: AVE  kernel_size: 200  stride: 200}}
+layer { bottom: "label"              top: "rotation" name: "rotation"          type: "Pooling"      pooling_param { pool: AVE  kernel_size: 400  stride: 200}}
 
 layer { bottom: "fc_d2"  bottom: "rotation" top: "loss"   name: "loss"              type: "SoftmaxWithLoss"   softmax_param {engine: CAFFE} 
   include {
