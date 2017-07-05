@@ -166,7 +166,7 @@ layer { bottom: "fc_d2"  bottom: "rotation" top: "loss"   name: "loss"          
   }
 }
 
-layer { bottom: "fc_d2"  bottom: "rotation" top: "accuracy" top: "per_class_accuracy" name: "accuracy"  type: "Accuracy"  }
+layer { bottom: "fc_d2"  bottom: "rotation" top: "accuracy" name: "accuracy"  type: "Accuracy"  }
 
 # layer { bottom: "crop"                   top: "sm"   name: "sm"              type: "Softmax"   softmax_param {engine: CAFFE} 
 #   include {
