@@ -52,7 +52,6 @@ layer {
   lrn_param { local_size: 5 alpha: 0.0001 beta: 0.75 }
 }
 
-layer { bottom: "labelY"             name: "silence"     type: "Silence" }
 # reference image
 # encoder one
 layer { bottom: "ref_norm"             top: "ref_d0b"   name: "ref_conv_d0a-b"     type: "Convolution"  param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 } convolution_param { num_output: 64 pad: 1 kernel_size: 3 weight_filler { type: "msra" } bias_filler { type: "constant" }} }
