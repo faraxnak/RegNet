@@ -123,7 +123,7 @@ layer { bottom: "ref_d1pool"        bottom: "fl_d1pool"   top: "concat"         
 ## concat decoding
 
 # conv layer with stride two instead of pooling
-layer { bottom: "concat"              top: "cat_d0pool"  name:"cat_d0pool"             type:"Convolution" param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 stride: 2 weight_filler { type: "msra" } bias_filler { type: "constant" } }}
+layer { bottom: "concat"              top: "cat_d0pool"  name:"cat_d0pool"             type:"Convolution" param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 128 pad: 1 kernel_size: 3 stride: 4 weight_filler { type: "msra" } bias_filler { type: "constant" } }}
 layer { bottom: "cat_d0pool"          top: "cat_d0pool"  name: "cat_relu_d0pool"       type: "ReLU" }
 
 # encoder one
@@ -138,7 +138,7 @@ layer { bottom: "cat_d0d"             top: "cat_d0d"  name: "cat_bn_d0d"        
 layer { bottom: "cat_d0d"             top: "cat_d0d"  name: "cat_relu_d0d"      type: "ReLU" }
 
 # conv layer with stride two instead of pooling
-layer { bottom: "cat_d0d"             top: "cat_d1pool"  name:"cat_d1pool"             type:"Convolution" param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 stride: 2 weight_filler { type: "msra" } bias_filler { type: "constant" } }}
+layer { bottom: "cat_d0d"             top: "cat_d1pool"  name:"cat_d1pool"             type:"Convolution" param { lr_mult: 1 decay_mult: 1 } param { lr_mult: 2 decay_mult: 0 }  convolution_param { num_output: 256 pad: 1 kernel_size: 3 stride: 4 weight_filler { type: "msra" } bias_filler { type: "constant" } }}
 layer { bottom: "cat_d1pool"          top: "cat_d1pool"  name: "cat_relu_d1pool"       type: "ReLU" }
 
 # encoder two
