@@ -2,7 +2,7 @@ net: "/home/bisipl/Documents/MATLAB/SegNet/Models/regNetBN-Euc-Rotation-train.pr
 test_initialization: false
 test_iter: 2
 test_interval: 20000
-base_lr: 0.00001
+base_lr: 0.0001
 lr_policy: "step"
 gamma: 0.5
 stepsize: 2000
