@@ -191,9 +191,9 @@ layer { bottom: "fc_d1"               top: "fc_d2"    name: "fc_d2"             
 
 # rotation label from image
 # layer { bottom: "label"              top: "rotation" name: "rotation"          type: "Pooling"      pooling_param { pool: AVE  kernel_size: 300  stride: 200}}
-layer { bottom: "label"               top: "rotation" name: "rotation"          type: "Reduction"      reduction_param { operation: MEAN  axis: 2}}
+# layer { bottom: "label"               top: "rotation" name: "rotation"          type: "Reduction"      reduction_param { operation: MEAN  axis: 2}}
 
-layer { bottom: "fc_d2"  bottom: "rotation" top: "loss"   name: "loss"              type: "EuclideanLoss"
+layer { bottom: "fc_d2"  bottom: "label" top: "loss"   name: "loss"              type: "EuclideanLoss"
   # include {
   #   phase: TRAIN
   # }
