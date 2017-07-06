@@ -10,7 +10,7 @@ layer {
     phase: TRAIN
   }
   hdf5_data_param {
-    source: "/home/bisipl/Documents/MATLAB/RegNet/data/train.hdf5"
+    source: "/home/bisipl/Documents/MATLAB/RegNet/data/list.txt"
     batch_size: 1
     shuffle: true
   }
@@ -25,7 +25,7 @@ layer {
     phase: TEST
   }
   hdf5_data_param {
-    source: "/home/bisipl/Documents/MATLAB/RegNet/test/test.hdf5"
+    source: "/home/bisipl/Documents/MATLAB/RegNet/test/list.txt"
     batch_size: 1
   }
 }
