@@ -176,21 +176,21 @@ layer { bottom: "fc_d2"  bottom: "rotation" top: "loss"   name: "loss"          
 #   }
 # }
 
-# layer {
-#     type: 'Python'
-#     name: 'testInference'
-#     bottom: 'ref'
-#     bottom: 'fl'
-#     bottom: 'sm'
-#     bottom: 'labelX'
-#     python_param {
-#       module: "testInference"
-#       layer: "TestInference"
-#     }
-#     include {
-#       phase : TEST
-#     }
-# }
+layer {
+    type: 'Python'
+    name: 'testRotation'
+    bottom: 'ref'
+    bottom: 'fl'
+    bottom: 'rotation'
+    bottom: 'fc_d2'
+    python_param {
+      module: "testRotation"
+      layer: "TestRotation"
+    }
+    include {
+      phase : TEST
+    }
+}
 
 # layer {
 #   type: 'Python'
