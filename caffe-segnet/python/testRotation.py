@@ -38,9 +38,9 @@ class TestRotation(caffe.Layer):
             # estimateImg = np.squeeze(estimate)
             # print(estimate.shape)
             label = bottom[3].data[i,:]
-            print('rotation in degrees:', label)
+            print('rotation in degrees:', label[0])
             print('estimate in degrees: ', estimate[0])
-            rotated = imutils.rotate(image, estimate[0])
+            rotated = imutils.rotate(ref, estimate[0])
             # print(estimateImg.max(axis=1))
             plt.figure()
             plt.imshow(ref, cmap='gray')
