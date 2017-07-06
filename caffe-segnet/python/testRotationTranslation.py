@@ -40,8 +40,8 @@ class TestRotationTranslation(caffe.Layer):
             label = bottom[3].data[i,:]
             print('rotation in degrees:', label[0])
             print('estimate in degrees: ', estimate[0])
-            print('translaion in pixels:', label[1:2])
-            print('translaion estimate in pixels:', estimate[1:2])
+            print('translaion in pixels:', label[1], label[2])
+            print('translaion estimate in pixels:', estimate[1], estimate[2])
             rotated = imutils.rotate(fl, -1 * estimate[0])
             M = np.float32([[1, 0, -1*estimate[1]],[0, 1, -1*estimate[2]]])
             rows,cols = rotated.shape
