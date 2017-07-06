@@ -209,14 +209,14 @@ layer { bottom: "fc_d2"  bottom: "label" top: "loss"   name: "loss"             
 
 layer {
     type: 'Python'
-    name: 'testRotation'
+    name: 'testRotationTranslation'
     bottom: 'dataRef'
     bottom: 'dataFl'
     bottom: 'fc_d2'
     bottom: 'label'
     python_param {
-      module: "testRotation"
-      layer: "TestRotation"
+      module: "testRotationTranslation"
+      layer: "TestRotationTranslation"
     }
     include {
       phase : TEST
