@@ -187,7 +187,7 @@ layer { bottom: "cat_d1b"             top: "cat_d1b"  name: "cat_relu_d1b"      
 layer { bottom: "cat_d1b"             top: "fc_d1"    name: "fc_d1"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 256  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
 layer { bottom: "fc_d1"               top: "fc_d1"    name: "fc_relu_d1"        type: "ReLU"}
 
-layer { bottom: "fc_d1"               top: "fc_d2"    name: "fc_d2"             type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 3  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
+layer { bottom: "fc_d1"               top: "fc_d2"    name: "fc_d2_rot_trans"   type: "InnerProduct" param { lr_mult: 1 decay_mult: 1} param { lr_mult: 2  decay_mult: 0 } inner_product_param { num_output: 3  weight_filler { type: "gaussian"  std: 0.005 } bias_filler { type: "constant"  value: 0.1 } }}
 
 # rotation label from image
 # layer { bottom: "label"              top: "rotation" name: "rotation"          type: "Pooling"      pooling_param { pool: AVE  kernel_size: 300  stride: 200}}
