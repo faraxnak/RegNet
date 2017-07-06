@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class TestInference(caffe.Layer):
+class TestRotation(caffe.Layer):
     # ref = none
     # im = none
     # label = none
