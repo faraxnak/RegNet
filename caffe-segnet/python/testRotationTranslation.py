@@ -43,7 +43,7 @@ class TestRotationTranslation(caffe.Layer):
             print('translaion in pixels:', label[1:2])
             print('translaion estimate in pixels:', estimate[1:2])
             rotated = imutils.rotate(fl, -1 * estimate[0])
-            M = np.float32([[1,0,estimate[1]],[0,1,estimate[2]]])
+            M = np.float32([[1, 0, -1*estimate[1]],[0, 1, -1*estimate[2]]])
             rows,cols = rotated.shape
             translated = cv2.warpAffine(rotated,M,(cols,rows))
             # print(estimateImg.max(axis=1))
