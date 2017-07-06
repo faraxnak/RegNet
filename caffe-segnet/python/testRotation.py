@@ -40,7 +40,7 @@ class TestRotation(caffe.Layer):
             label = bottom[3].data[i,:]
             print('rotation in degrees:', label[0])
             print('estimate in degrees: ', estimate[0])
-            rotated = imutils.rotate(ref, estimate[0])
+            rotated = imutils.rotate(fl, -1 * estimate[0])
             # print(estimateImg.max(axis=1))
             plt.figure()
             plt.imshow(ref, cmap='gray')
