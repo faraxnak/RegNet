@@ -29,7 +29,7 @@ class TestRotation(caffe.Layer):
       for i in range(0,bottom[0].data.shape[0]):
             ref = np.squeeze(bottom[0].data[i,:])
             fl = np.squeeze(bottom[1].data[i,:])
-            estimate = np.squeeze(bottom[2].data[i,:])
+            estimate = bottom[2].data[i,:]
             # ind = np.argmax(estimate, axis=0)
             # print(ind)
             # estimateImg = ind.copy()
@@ -37,8 +37,8 @@ class TestRotation(caffe.Layer):
             #   estimateImg[ind == j] = j
             # estimateImg = np.squeeze(estimate)
             # print(estimate.shape)
-            label = np.squeeze(bottom[3].data[i,:])
-            print('rotation in degrees:', Double(label[0]))
+            label = bottom[3].data[i,:]
+            print('rotation in degrees:', label))
             print('estimate in degrees: ', estimate[0])
             rotated = imutils.rotate(image, estimate[0])
             # print(estimateImg.max(axis=1))
